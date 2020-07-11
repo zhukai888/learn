@@ -1,0 +1,28 @@
+<div class="sidebar-logo">
+  <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+  <h1>艺术融媒体</h1>
+</div>
+
+
+
+
+<ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+
+  <ng-container *ngFor="let route of routeList">
+    <ng-container *ngIf="route.data.onlyOne">
+      <li nz-menu-item nzIcon="dashboard" nzMatchRouter [routerLink]="route.path"> {{route.data.name}} </li>
+    </ng-container>
+
+    <ng-container *ngIf="!route.data.onlyOne">
+      <li nz-submenu nzMatchRouter [nzTitle]="route.data.name" nzIcon="dashboard">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="route.path">Welcome</a>
+          </li>
+        </ul>
+    </ng-container>
+
+
+  </ng-container>
+
+</ul>
