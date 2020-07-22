@@ -1,4 +1,4 @@
-import { ElementRef, ViewChild, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-index',
@@ -7,18 +7,9 @@ import { ElementRef, ViewChild, Component, OnInit } from '@angular/core';
 })
 export class IndexComponent implements OnInit {
 
-
-  @ViewChild('topbar') topbar: any;
-
-  public msg = 'topbar12112'
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  runp() {
-
-  }
-  ngAfterViewInit(): void {
-  }
 }

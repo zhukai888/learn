@@ -67,13 +67,47 @@ var Animal = /** @class */ (function () {
     };
     return Animal;
 }());
-var dog = /** @class */ (function (_super) {
-    __extends(dog, _super);
-    function dog(name) {
+var Dog = /** @class */ (function (_super) {
+    __extends(Dog, _super);
+    function Dog(name) {
         return _super.call(this, name) || this;
     }
-    dog.prototype.eat = function (food) {
-        console.log('重写了方法' + food);
+    Dog.prototype.eat = function () {
+        console.log(this.name + '吃老鼠');
     };
-    return dog;
+    return Dog;
 }(Animal));
+var dog = new Dog('狗');
+dog.eat();
+//抽象方法，提供其他类继承的基类，不能直接被实例化。
+//用 abstract 关键字定义抽象类和抽象方法，抽象类中的抽象方法不包含具体实现，并且必须在派生类中实现
+//抽象方法只能放在抽象类里面
+//抽象类和抽象方法用来定义标准，抽象类里面可以有非抽象方法
+var Fruit = /** @class */ (function () {
+    function Fruit() {
+    }
+    Fruit.prototype.run = function () {
+        console.log("run");
+    };
+    ;
+    return Fruit;
+}());
+var Bananas = /** @class */ (function (_super) {
+    __extends(Bananas, _super);
+    function Bananas(name) {
+        var _this = _super.call(this) || this;
+        _this.name = name;
+        return _this;
+    }
+    Bananas.prototype.eat = function () {
+        console.log("菜啊");
+    };
+    Bananas.prototype.run = function () {
+        console.log("run菜啊");
+    };
+    ;
+    return Bananas;
+}(Fruit));
+var banans = new Bananas("香蕉");
+banans.eat();
+banans.run();

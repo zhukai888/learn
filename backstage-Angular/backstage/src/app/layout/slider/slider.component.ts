@@ -26,9 +26,6 @@ export class SliderComponent implements OnInit {
     this.routeList = this.router.config.filter(item => item.data.hidden != true);
 
     this.router.events.subscribe((data) => {
-      console.log("====");
-
-      console.log(data);
       //data返回一堆路由事件，所有得筛选自己需要的，这里选择路由导航结束之后
       if (data instanceof NavigationEnd) {
         //获取当前路由配置

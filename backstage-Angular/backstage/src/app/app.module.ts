@@ -17,7 +17,8 @@ import zh from '@angular/common/locales/zh';
 import { IndexComponent } from './layout/index/index.component';
 import { SliderComponent } from './layout/slider/slider.component';
 import { TopbarComponent } from './layout/topbar/topbar.component';
-import { ContainerComponent } from './layout/container/container.component';
+import { ContainerComponent } from './pages/container/container.component';
+import { TererComponent } from './pages/terer/terer.component';
 
 
 
@@ -29,7 +30,8 @@ registerLocaleData(zh);
     IndexComponent,
     SliderComponent,
     TopbarComponent,
-    ContainerComponent
+    ContainerComponent,
+    TererComponent
   ],
   imports: [
     BrowserModule,

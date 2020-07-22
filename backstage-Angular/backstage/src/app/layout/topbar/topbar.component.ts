@@ -21,7 +21,6 @@ export class TopbarComponent implements OnInit {
   }
 
   run() {
-    console.log("子组件跑动")
     this.runp();
   }
 

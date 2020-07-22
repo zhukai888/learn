@@ -10,7 +10,13 @@
 
   <ng-container *ngFor="let route of routeList">
     <ng-container *ngIf="route.data.onlyOne">
-      <li nz-menu-item nzIcon="dashboard" nzMatchRouter [routerLink]="route.path"> {{route.data.name}} </li>
+
+      <li nz-menu-item nzMatchRouter [routerLink]="route.path">
+        <i nz-icon nzType="file"></i>
+        <span>{{route.data.name}}</span>
+      </li>
+
+
     </ng-container>
 
     <ng-container *ngIf="!route.data.onlyOne">
@@ -21,8 +27,6 @@
           </li>
         </ul>
     </ng-container>
-
-
   </ng-container>
 
 </ul>

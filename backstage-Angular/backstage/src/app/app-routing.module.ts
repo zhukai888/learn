@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
-import { IndexComponent } from './layout/index/index.component'
+import { IndexComponent } from './layout/index/index.component';
+import { ContainerComponent } from './pages/container/container.component';
+import { IndexComponent as containerIndex} from './pages/container/index/index.component';
 
 const routes: Routes = [
   {
@@ -18,14 +20,24 @@ const routes: Routes = [
       onlyOne: true
     }
   },
-  // { path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule) }
   {
-    path: 'welcome', component: WelcomeComponent,
+    path: 'welcome',
+    component: WelcomeComponent,
     data: {
-      name: "欢迎页",
+      name: '欢迎页',
       onlyOne: true
-
     }
+  },
+  {
+    path: 'container',
+    component: ContainerComponent,
+    data: {
+      name: 'qwqw',
+    },
+    children: [{
+      path: 'index',
+      component: containerIndex,
+    }]
   },
 ];
 

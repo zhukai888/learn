@@ -61,15 +61,55 @@ class Animal {
   constructor(name: string) {
     this.name = name;
   }
-  eat(): void {
+  eat() {
   }
 }
 
-class dog extends Animal {
+class Dog extends Animal {
   constructor(name: string) {
     super(name);
   }
-  eat(food: string): void {
-    console.log('重写了方法' + food);
+  eat() {
+    console.log(this.name + '吃老鼠')
   }
 }
+
+
+let dog = new Dog('狗');
+dog.eat()
+
+
+//抽象方法，提供其他类继承的基类，不能直接被实例化。
+//用 abstract 关键字定义抽象类和抽象方法，抽象类中的抽象方法不包含具体实现，并且必须在派生类中实现
+//抽象方法只能放在抽象类里面
+//抽象类和抽象方法用来定义标准，抽象类里面可以有非抽象方法
+abstract class Fruit {
+    abstract eat():any;
+    run(){
+      console.log("run");
+    };
+}
+
+class Bananas extends Fruit {
+  name:string;
+  constructor(name:string) {
+    super()
+    this.name = name
+  }
+
+  eat(){
+    console.log("菜啊")
+  }
+
+  run(){
+    console.log("run菜啊");
+  };
+}
+let banans = new Bananas("香蕉");
+banans.eat();
+banans.run();
+
+
+
+
+
