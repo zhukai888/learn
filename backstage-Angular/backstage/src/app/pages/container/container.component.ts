@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 
-import { observable, Observable } from 'rxjs'
+import { observable, Observable } from 'rxjs';
+import {ApiConfigService} from '../services/api-config.service';
 
 
 @Component({
@@ -18,40 +19,35 @@ export class ContainerComponent implements OnInit {
   //viewChild获取节点
   @ViewChild('container2') container2: any;
 
-  constructor(private http: HttpClient,private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private apiConfigService: ApiConfigService) {
 
   }
 
 
 
-  //生命周期函数，页面进入触发
+  // 生命周期函数，页面进入触发
   ngOnInit(): void {
-    let stream = new Observable(observer => {
-      setTimeout(()=>{
-        observer.next('observable timeout')
-      },2000)
-    })
-
-    stream.subscribe(value => console.log(value))
+    this.apiConfigService.xhttp('post', '/api/App/get_system_article', { articleid: 5 });
   }
 
-  //试图加载完成，操作dom的方法放在这里面
+  // 试图加载完成，操作dom的方法放在这里面
   ngAfterViewInit(): void {
+
   }
 
-  change() {
-    let res = this.http.request('GET', "api/a").subscribe((res) => {
-      console.log(res)
-    });
-  }
+  // change() {
+  //   let res = this.http.request('GET', "api/a").subscribe((res) => {
+  //     console.log(res)
+  //   });
+  // }
 
-  translation() {
-    this.container2.nativeElement.style.transform = 'translate(100%,0)'
-  }
+  // translation() {
+  //   this.container2.nativeElement.style.transform = 'translate(100%,0)'
+  // }
 
-  navTo(){
-    this.router.navigate(["/login"],{})
-  }
+  // navTo() {
+  //   this.router.navigate(["/login"], {})
+  // }
 
 
 }

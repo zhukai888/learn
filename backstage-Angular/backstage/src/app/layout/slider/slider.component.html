@@ -6,24 +6,23 @@
 
 
 
-<ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+<ul nz-menu nzTheme="light" [nzInlineCollapsed]="isCollapsed" nzMode="inline">
 
   <ng-container *ngFor="let route of routeList">
+
     <ng-container *ngIf="route.data.onlyOne">
-
-      <li nz-menu-item nzMatchRouter [routerLink]="route.path">
-        <i nz-icon nzType="file"></i>
+      <li nz-menu-item nzMatchRouter nzMatchRouter>
+        <i nz-icon [nzType]="'setting'"></i>
         <span>{{route.data.name}}</span>
+        <a [routerLink]="route.path"></a>
       </li>
-
-
     </ng-container>
 
     <ng-container *ngIf="!route.data.onlyOne">
-      <li nz-submenu nzMatchRouter [nzTitle]="route.data.name" nzIcon="dashboard">
+      <li nz-submenu nzMatchRouter [nzTitle]="route.data.name" nzIcon="dashboard"  [nzOpen]="route.open">
         <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="route.path">Welcome</a>
+          <li nz-menu-item nzMatchRouter *ngFor="let routeChildren of route.children">
+            <a [routerLink]="route.path + '/' + routeChildren.path">{{routeChildren.data.name}}</a>
           </li>
         </ul>
     </ng-container>

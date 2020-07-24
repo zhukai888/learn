@@ -1,5 +1,4 @@
-import { Output, EventEmitter,Input, Component, OnInit } from '@angular/core';
-
+import { Output, EventEmitter, Input, Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
@@ -7,21 +6,20 @@ import { Output, EventEmitter,Input, Component, OnInit } from '@angular/core';
 })
 export class TopbarComponent implements OnInit {
 
-  //获取父组件的传值
-  @Input() msg:string;
-
-  @Input() runp:any;
   isCollapsed = false;
-  @Output() private outer = new EventEmitter<string>();
+
+  // 通过@Output实例化要传递向父组件的消息
+  @Output() private outer = new EventEmitter();
+
+  handlerClick(){
+    this.isCollapsed = !this.isCollapsed;
+    this.outer.emit(this.isCollapsed);
+  }
 
   constructor() { }
 
   ngOnInit(): void {
 
-  }
-
-  run() {
-    this.runp();
   }
 
 }

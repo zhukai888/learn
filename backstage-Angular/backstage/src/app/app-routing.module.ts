@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { IndexComponent } from './layout/index/index.component';
 import { ContainerComponent } from './pages/container/container.component';
-import { IndexComponent as containerIndex} from './pages/container/index/index.component';
+import { IndexComponent as containerIndex } from './pages/container/index/index.component';
 
 const routes: Routes = [
   {
@@ -32,11 +32,35 @@ const routes: Routes = [
     path: 'container',
     component: ContainerComponent,
     data: {
-      name: 'qwqw',
+      name: '彻底的vv',
     },
     children: [{
       path: 'index',
       component: containerIndex,
+      data: {
+        name: '我的天',
+      }
+    }]
+  },
+  {
+    path: 'containers',
+    component: ContainerComponent,
+    data: {
+      name: '彻底的vv',
+    },
+    children: [{
+      path: 'indexs',
+      component: containerIndex,
+      data: {
+        name: 'sdd',
+      },
+      children: [{
+        path: 'indexs',
+        component: containerIndex,
+        data: {
+          name: 'sdd',
+        }
+      }]
     }]
   },
 ];

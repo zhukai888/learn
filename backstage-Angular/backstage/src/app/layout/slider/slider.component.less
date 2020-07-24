@@ -4,10 +4,8 @@
   padding-left: 24px;
   overflow: hidden;
   line-height: 64px;
-  background: #001529;
   transition: all .3s;
-
-  color: #fff;
+  color: #001529;
 }
 
 .sidebar-logo img {
@@ -20,9 +18,13 @@
 .sidebar-logo h1 {
   display: inline-block;
   margin: 0 0 0 20px;
-  color: #fff;
   font-weight: 600;
   font-size: 14px;
-  font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
+  font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
   vertical-align: middle;
+}
+
+
+.ant-menu-inline .ant-menu-item-selected::after{
+  transition: none!important;
 }

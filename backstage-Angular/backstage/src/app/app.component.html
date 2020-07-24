@@ -1,11 +1,10 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null">
-    <app-slider></app-slider>
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" [(nzCollapsed)]="isCollapsed" nzTheme="light">
+    <app-slider [isCollapsed]="isCollapsed"></app-slider>
   </nz-sider>
   <nz-layout>
     <nz-header>
-      <app-topbar></app-topbar>
+      <app-topbar (outer)="handlerChild($event)"></app-topbar>
     </nz-header>
     <nz-content>
       <div class="container">

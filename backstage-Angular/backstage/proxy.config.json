@@ -3,7 +3,7 @@
 
 {
   "/api/*": {
-    "target": "http://127.0.0.1:8900",
+    "target": "http://apitest.mscmchina.com/ApiV3",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
