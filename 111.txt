@@ -1,0 +1,20 @@
+find、filter、forEach、map、 some、 any、 reduce
+
+css、 水平垂直居中
+
+jssdk、 重新分享注入
+
+
+数组的length =0时，
+if（arr.length）不一定wei false
+
+
+静态语言、动态语言
+
+
+forEach不能改变数组的值，但是为什么能改变数组对象的值呢
+
+ty 第5节
+
+xmlhttp
+fetch
