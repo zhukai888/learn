@@ -19,7 +19,7 @@
     </ng-container>
 
     <ng-container *ngIf="!route.data.onlyOne">
-      <li nz-submenu nzMatchRouter [nzTitle]="route.data.name" nzIcon="dashboard"  [nzOpen]="route.open">
+      <li nz-submenu nzMatchRouter [nzTitle]="route.data.name" nzIcon="dashboard"  [nzOpen]="route.open" (nzOpenChange)="openHandler()">
         <ul>
           <li nz-menu-item nzMatchRouter *ngFor="let routeChildren of route.children">
             <a [routerLink]="route.path + '/' + routeChildren.path">{{routeChildren.data.name}}</a>

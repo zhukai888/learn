@@ -18,9 +18,6 @@ export class SliderComponent implements OnInit {
   public routeList: any;
 
 
-
-
-
   constructor(private router: Router, private planform: PlatformLocation) {
   }
 
@@ -52,8 +49,14 @@ export class SliderComponent implements OnInit {
     //     this.path = data.url.substr(1);
     //   }
     // })
+  }
 
+  openHandler(e) {
+    this.routeList.forEach((route) => {
+      route.open = false;
+    });
 
+    console.log(e)
   }
 
 }
