@@ -6,7 +6,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 
 import { observable, Observable } from 'rxjs';
-import {ApiConfigService} from '../services/api-config.service';
+import { ApiConfigService } from '../services/api-config.service';
 
 
 @Component({
@@ -16,38 +16,21 @@ import {ApiConfigService} from '../services/api-config.service';
 })
 export class ContainerComponent implements OnInit {
 
-  //viewChild获取节点
+  // viewChild获取节点
   @ViewChild('container2') container2: any;
-
   constructor(private http: HttpClient, private router: Router, private apiConfigService: ApiConfigService) {
-
   }
-
-
 
   // 生命周期函数，页面进入触发
   ngOnInit(): void {
-    this.apiConfigService.xhttp('post', '/api/App/get_system_article', { articleid: 5 });
+    this.apiConfigService.post('/App/get_system_article', { articleid: 5 });
+    this.apiConfigService.post('/App/get_ads', { type: 1 });
+    this.apiConfigService.post('/App/verify_code', { type: 1, mobile: 18758129692, code: 3888 });
   }
 
   // 试图加载完成，操作dom的方法放在这里面
   ngAfterViewInit(): void {
 
   }
-
-  // change() {
-  //   let res = this.http.request('GET', "api/a").subscribe((res) => {
-  //     console.log(res)
-  //   });
-  // }
-
-  // translation() {
-  //   this.container2.nativeElement.style.transform = 'translate(100%,0)'
-  // }
-
-  // navTo() {
-  //   this.router.navigate(["/login"], {})
-  // }
-
 
 }
