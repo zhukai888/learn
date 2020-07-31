@@ -1,0 +1,56 @@
+
+<div class="invit">
+
+  <div class="form">
+    <form nz-form nzLayout="inline">
+      <nz-form-item>
+        <nz-form-label>用户名</nz-form-label>
+        <nz-form-control>
+          <input nz-input [(ngModel)]="userName" name="uname">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <button nz-button nzType="primary" (click)="search()">搜索</button>
+      </nz-form-item>
+    </form>
+  </div>
+
+  <div class="tabBorder">
+    <nz-table #basicTable [nzData]="list" [nzPageIndex]="page" [nzPageSize]="pageNum" 
+    nzShowPagination nzShowSizeChanger
+      [nzPageSizeOptions]="[10,20,50]" (nzPageSizeChange)="changePageSize($event)" [nzTotal]="total" [nzLoading]="loading"
+      nzFrontPagination="false" (nzPageIndexChange)="changePageIndex($event)"
+      >
+      <thead>
+        <tr>
+          <th nzAlign="center">id</th>
+          <th nzAlign="center">头像</th>
+          <th nzAlign="center">邀请人id</th>
+          <th nzAlign="center">邀请人姓名</th>
+          <th nzAlign="center">被邀请人id</th>
+          <th nzAlign="center">被邀请人姓名</th>
+          <th nzAlign="center">邀请成功时间</th>
+          <th nzAlign="center">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td nzAlign="center">{{data.id}}</td>
+          <td nzAlign="center">
+            <img [src]="data.headimg | switchImgUrl" alt="" class="headimg">
+          </td>
+          <td nzAlign="center">{{data.user_id}}</td>
+          <td nzAlign="center">{{data.user_name}}</td>
+          <td nzAlign="center">{{data.be_invited_userid}}</td>
+          <td nzAlign="center">{{data.be_invited_user_name}}</td>
+          <td nzAlign="center">{{data.addtime*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td nzAlign="center">
+            <!-- <a [routerLink]="['/invit/']" [queryParams]="{ id:data.user_id }">查看被邀请人记录</a> -->
+            <button nz-button nzType="primary" (click)="replace(data.be_invited_userid)">查看被邀请人记录</button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

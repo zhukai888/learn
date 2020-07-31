@@ -399,6 +399,14 @@ this.http.jsonp("api/a",'XXX').subscribe((res) => {
 
 
 
+```
+终端安装npm install rxjs-compat然后声明
+
+import'rxjs / add / operator / map';
+```
+
+
+
 
 
 

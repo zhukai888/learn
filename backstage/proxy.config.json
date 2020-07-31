@@ -1,0 +1,12 @@
+
+{
+  "/api": {
+    "target": "http://apitest.mscmchina.com/AdminApiV1",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}

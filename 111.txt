@@ -1,5 +1,3 @@
-find、filter、forEach、map、 some、 any、 reduce
-
 css、 水平垂直居中
 
 jssdk、 重新分享注入

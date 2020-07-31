@@ -1,0 +1,60 @@
+.login {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../../././../assets/image//login.jpg);
+  background-size: 100%, 100%;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 200px 30%;
+  box-sizing: border-box;
+
+  .main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .loginInfo {
+      width: 448px;
+      height: 448px;
+
+      .title {
+        text-align: center;
+        background-color: #f6a8a8;
+        width: 100%;
+        height: 70px;
+        line-height: 70px;
+        color: #fff;
+        font-size: 24px;
+
+        img {
+          width: 50px;
+          height: 50px;
+          margin-right: 20px;
+        }
+      }
+
+      .login-form {
+        height: calc(100% - 70px);
+        background-color: #9f9e9e;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 30px 50px;
+
+        div:nth-child(1) {
+          margin-bottom: 20px;
+        }
+
+      }
+
+    }
+  }
+}
+
+
+::ng-deep .login .login-form .ant-input-affix-wrapper,
+::ng-deep .login .login-form .ant-input {
+  background-color: transparent;
+}

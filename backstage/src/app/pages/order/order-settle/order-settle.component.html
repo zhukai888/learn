@@ -1,0 +1,82 @@
+<div class="orderSettle">
+
+  <div class="form">
+    <form nz-form nzLayout="inline">
+      <nz-form-item>
+        <nz-form-label>商户名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input [(ngModel)]="form.uname" name="uname">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>订单编号</nz-form-label>
+        <nz-form-control>
+          <input nz-input [(ngModel)]="form.from_order_number" name="from_order_number">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>业务类型</nz-form-label>
+        <nz-form-control>
+          <nz-select nzAllowClear [(ngModel)]="form.reward_type" name="reward_type">
+            <nz-option *ngFor="let item of form.rewardOpt" [nzLabel]="item.label" [nzValue]="item.value"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>结算状态</nz-form-label>
+        <nz-form-control>
+          <nz-select nzAllowClear [(ngModel)]="form.reward_order_state" name="reward_order_state">
+            <nz-option *ngFor="let item of form.rewardOrderOpt" [nzLabel]="item.label" [nzValue]="item.value">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>时间段</nz-form-label>
+        <nz-form-control>
+          <nz-range-picker [(ngModel)]="form.time" (ngModelChange)="changeTime($event)" name="time"></nz-range-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <button nz-button nzType="primary" (click)="search()">搜索</button>
+      </nz-form-item>
+    </form>
+  </div>
+
+  <div class="tabBorder">
+    <nz-table #basicTable [nzData]="list" [nzPageIndex]="page" [nzPageSize]="pageNum" nzShowPagination nzShowSizeChanger
+      [nzPageSizeOptions]="[10,20,50]" (nzPageSizeChange)="changePageSize($event)" [nzTotal]="total" [nzLoading]="loading"
+      nzFrontPagination="false" (nzPageIndexChange)="changePageIndex($event)">
+      <thead>
+        <tr>
+          <th nzAlign="center">id</th>
+          <th nzAlign="center">结算单号</th>
+          <th nzAlign="center">订单编号</th>
+          <th nzAlign="center">业务类型</th>
+          <th nzAlign="center">结算对象</th>
+          <th nzAlign="center">订单金额</th>
+          <th nzAlign="center">结算金额</th>
+          <th nzAlign="center">结算状态</th>
+          <th nzAlign="center">添加时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td nzAlign="center">{{data.id}}</td>
+          <td nzAlign="center">{{data.statement_number}}</td>
+          <td nzAlign="center">{{data.from_order_number}}</td>
+          <td nzAlign="center">{{data.reward_type | rewardType}}</td>
+          <td nzAlign="center">{{data.gain_user_name}}</td>
+          <td nzAlign="center">{{data.reward_money}}</td>
+          <td nzAlign="center">{{data.actual_amount}}</td>
+          <td nzAlign="center">{{data.reward_order_state | rewardorderState}}</td>
+          <td nzAlign="center">{{data.addtime*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

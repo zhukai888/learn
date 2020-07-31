@@ -1,0 +1,235 @@
+<div class="withDraw">
+  <div class="form">
+    <form nz-form nzLayout="inline">
+
+      <nz-form-item>
+        <nz-form-label>提现类型</nz-form-label>
+        <nz-form-control>
+          <nz-select nzAllowClear [(ngModel)]="form.draw_type" name="draw_type">
+            <nz-option *ngFor="let item of form.drawOpt" [nzLabel]="item.label" [nzValue]="item.value">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+
+      <nz-form-item>
+        <nz-form-label>提现状态</nz-form-label>
+        <nz-form-control>
+          <nz-select nzAllowClear [(ngModel)]="form.request_state" name="draw_type">
+            <nz-option *ngFor="let item of form.requestStateOpt" [nzLabel]="item.label" [nzValue]="item.value">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>时间段</nz-form-label>
+        <nz-form-control>
+          <nz-range-picker [(ngModel)]="form.time" (ngModelChange)="changeTime($event)" name="time"></nz-range-picker>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <button nz-button nzType="primary" (click)="search()">搜索</button>
+      </nz-form-item>
+    </form>
+  </div>
+
+  <div class="tabBorder">
+    <nz-table #basicTable [nzData]="list" [nzPageIndex]="page" [nzPageSize]="pageNum" nzShowPagination nzShowSizeChanger
+      [nzPageSizeOptions]="[10,20,50]" (nzPageSizeChange)="changePageSize($event)" [nzTotal]="total"
+      [nzLoading]="loading" nzFrontPagination="false" (nzPageIndexChange)="changePageIndex($event)">
+      <thead>
+        <tr>
+          <th nzAlign="center">id</th>
+          <th nzAlign="center">提现单号</th>
+          <th nzAlign="center">申请人</th>
+          <th nzAlign="center">收款账户</th>
+          <th nzAlign="center">提现金额</th>
+          <th nzAlign="center">手续费</th>
+          <th nzAlign="center">提现时间</th>
+          <th nzAlign="center">提现状态</th>
+          <th nzAlign="center">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data; let i=index">
+          <td nzAlign="center">{{data.id}}</td>
+          <td nzAlign="center">{{data.draw_cash_order_number}}</td>
+          <td nzAlign="center">{{data.uname}}</td>
+          <td nzAlign="center">
+            <p>{{data.user_real_name}}</p>
+            <p>{{data.account_number}}</p>
+          </td>
+          <td nzAlign="center">{{data.draw_money}}</td>
+          <td nzAlign="center">{{data.commission_money}}</td>
+          <td nzAlign="center">{{data.request_time}}</td>
+          <td nzAlign="center">{{data.request_state | requestState}}</td>
+          <td nzAlign="center">
+            <p><button nz-button nzType="primary" (click)="modalShow(1,data.id)"
+                *ngIf="data.request_state === '0'">付款</button></p>
+            <p><button nz-button nzType="primary" (click)="modalShow(2,data.id)"
+                *ngIf="data.request_state === '0'">拒付</button></p>
+            <p><button nz-button nzType="primary" (click)="modalShow(3,data.id)">查看详情</button></p>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+  <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalData.title" [nzFooter]="modalFooter" (nzOnCancel)="colseModel()">
+    <ng-container *ngIf="modalData.type != 3 else elseTemplate ">
+      <form nz-form>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4">操作员</nz-form-label>
+          <nz-form-control>
+            <input nz-input [(ngModel)]="modalData.userName" name="userName" disabled>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item *ngIf="modalData.type === 1">
+          <nz-form-label [nzSpan]="4">汇款流水号</nz-form-label>
+          <nz-form-control>
+            <input nz-input [(ngModel)]="modalData.erialNumber" name="erialNumber">
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item *ngIf="modalData.type === 2">
+          <nz-form-label [nzSpan]="4">拒付理由</nz-form-label>
+          <nz-form-control>
+            <textarea nz-input [(ngModel)]="modalData.requestRemark" [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+              name="requestRemark"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <div class="drawDetail">
+        <div>
+          <span>提现金额:</span>
+          <span>{{drawDetail.draw_money}}</span>
+        </div>
+        <div>
+          <span>手续费:</span>
+          <span>{{drawDetail.commission_money}}</span>
+        </div>
+        <div>
+          <span>提现时间:</span>
+          <span>{{drawDetail.request_time }}</span>
+        </div>
+        <div>
+          <span>提现状态:</span>
+          <span> {{drawDetail.request_state	| requestState}}</span>
+        </div>
+
+        <div>
+          <span>操作员:</span>
+          <span>{{drawDetail.deal_staff_name	}}</span>
+        </div>
+
+        <div>
+          <span>操作时间:</span>
+          <span>{{drawDetail.deal_time| date:'yyyy-MM-dd HH:mm:ss'}}</span>
+        </div>
+
+        <div *ngIf=" drawDetail.request_state==='2'">
+          <span>汇款流水号:</span>
+          <span>{{drawDetail.serial_number	}}</span>
+        </div>
+
+        <div *ngIf="drawDetail.request_state === '3'">
+          <span>备注(拒绝原因):</span>
+          <span>{{drawDetail.request_remark}}</span>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #modalFooter>
+      <button nz-button nzType="primary" (click)="sure()">确定</button>
+    </ng-template>
+  </nz-modal>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- <div>
+  <el-dialog :title="dialog.title" :visible.sync="dialogVisible" width="500px" @close="dialogVisible = false"
+    :before-close="handleClose">
+    <div v-if="dialog.type!=3">
+      <el-form inline label-width="100px">
+        <el-form-item label="操作员:">
+          <el-input disabled v-model="dialog.userName" size="large"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item label="汇款流水号:" v-show="dialog.type==1">
+          <el-input v-model="dialog.erialNumber"></el-input>
+        </el-form-item>
+        <el-form-item label="拒付理由" v-show="dialog.type==2">
+          <el-input type="textarea" v-model="dialog.request_remark"></el-input>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div v-else class="detail">
+      <div>
+        <div>提现单号:</div>
+        <div>{{drawDetail.draw_cash_order_number}}</div>
+      </div>
+      <div>
+        <div>申请人:</div>
+        <div>{{drawDetail.uname}}</div>
+      </div>
+      <div>
+        <div>收款账户:</div>
+        <div>
+          <p>{{drawDetail.user_real_name + "(" +drawDetail.account_number+")"}}</p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <div>提现金额:</div>
+        <div>{{drawDetail.draw_money}}</div>
+      </div>
+      <div>
+        <div>手续费:</div>
+        <div>{{drawDetail.commission_money}}</div>
+      </div>
+      <div>
+        <div>提现时间:</div>
+        <div>{{drawDetail.request_time }}</div>
+      </div>
+      <div>
+        <div>提现状态:</div>
+        <div> {{drawDetail.request_state	| stateFilter}}</div>
+      </div>
+      <div v-show="drawDetail.request_state == 4">
+        <div>备注(拒绝原因):</div>
+        <div>{{drawDetail.request_remark}}</div>
+      </div>
+      <div v-show="drawDetail.request_state == 1 || drawDetail.request_state == 2">
+        <div>汇款流水号:</div>
+        <div>{{drawDetail.serial_number	}}</div>
+      </div>
+      <div>
+        <div>操作员:</div>
+        <div>{{drawDetail.deal_staff_name	}}</div>
+      </div>
+      <div>
+        <div>操作时间:</div>
+        <div>{{drawDetail.deal_time}}</div>
+      </div>
+
+    </div>
+
+    <span slot="footer" class="dialog-footer" v-show="dialog.type!=3">
+      <el-button type="primary" @click="sure">确 定</el-button>
+    </span>
+  </el-dialog>
+</div> -->

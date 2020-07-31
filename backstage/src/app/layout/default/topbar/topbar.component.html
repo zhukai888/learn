@@ -1,0 +1,27 @@
+<div class="app-header">
+  <div class="left">
+    <span class="header-trigger" (click)="changeIsCollapsed()">
+      <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+    </span>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item *ngFor="let item of routerPath">
+        {{item}}
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </div>
+  <div class="right">
+    <img src="https://i.gtimg.cn/club/item/face/img/8/15918_100.gif" alt="">
+    <div class="drop">
+      <a nz-dropdown [nzDropdownMenu]="menu">
+        管理员名称
+        <i nz-icon nzType="down"></i>
+      </a>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item>个人中心</li>
+          <li nz-menu-item>设置</li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+  </div>
+</div>
