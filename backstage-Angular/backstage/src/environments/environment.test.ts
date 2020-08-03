@@ -6,7 +6,7 @@
  */
 
 export const environment = {
-  production: false,
+  production: true,
   SERVER_URL: 'http://apitest.mscmchina.com',
   IMG_URL: 'http://apitest.mscmchina.com'
 };

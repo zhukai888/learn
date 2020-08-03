@@ -9,7 +9,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   providedIn: 'root'
 })
 export class LoadInterceptor implements HttpInterceptor {
-  constructor(private message: NzMessageService) {}
+  constructor(private message: NzMessageService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 定义一个事时间变量, 输出日志
@@ -49,25 +49,25 @@ export class LoadInterceptor implements HttpInterceptor {
       case 204:
         break;
       case 400:
-        this.message.error('参数错误');
+        this.message.error('参数错误,状态码: ' + ev.status);
         break;
       case 401:
-        this.message.error('用户认证失败');
+        this.message.error('用户认证失败,状态码: ' + ev.status);
         break;
       case 403:
-        this.message.error('用户没有权限,请重新登录');
+        this.message.error('用户没有权限,请重新登录! 状态码: ' + ev.status);
         break;
       case 404:
-        this.message.error('未找到资源');
+        this.message.error('未找到资源,状态码: ' + ev.status);
         break;
       case 405:
-        this.message.error('方法不允许');
+        this.message.error('方法不允许,状态码: ' + ev.status);
         break;
       case 500:
-        this.message.error('服务器出错');
+        this.message.error('服务器出错,状态码: ' + ev.status);
         break;
       default:
-        this.message.error('请求失败' + ev.status);
+        this.message.error('请求失败,状态码: ' + ev.status);
         break;
     }
     return of(ev);

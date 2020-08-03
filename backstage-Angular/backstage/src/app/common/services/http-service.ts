@@ -29,12 +29,6 @@ export class HTTPService {
       }
     }
     return vm.http.get(vm.restServer + url, { params: httpParams });
-      // .subscribe(data => {
-      //   console.log('get请求结束', data);
-      //   cb(data);
-      // }, (err) => {
-      //   this.message.error(this.status[err.status]);
-      // });
   }
 
 
@@ -62,11 +56,5 @@ export class HTTPService {
       }
     }
     return vm.http.delete(vm.restServer + url, { params: httpParams });
-      // .subscribe(data => {
-      //   console.log('delete请求结束', data);
-      //   cb(data);
-      // }, (err) => {
-      //   // this.message.error(this.status[err.status]);
-      // });
   }
 }
