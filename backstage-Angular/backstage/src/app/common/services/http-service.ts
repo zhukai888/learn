@@ -9,8 +9,13 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class HTTPService {
-  public restServer;
-  public http;
+  public restServer: string;
+  public http: HttpClient;
+
+  headers = new Headers({
+    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+    Accept: '*!/'
+  });
 
 
   constructor(Http: HttpClient, private message: NzMessageService) {
@@ -33,7 +38,7 @@ export class HTTPService {
 
 
 
-  public post(url, data?: object, options?: object): Observable<any>  {
+  public post(url, data?: object, options?: object): Observable<any> {
     return this.http.post(this.restServer + url, data, options);
   }
 
@@ -45,7 +50,7 @@ export class HTTPService {
 
 
 
-  public delete(url, params?: object, cb?: Function): Observable<any> {
+  public delete(url, params?: object): Observable<any> {
     let httpParams = new HttpParams();
     const vm = this;
     if (params) {

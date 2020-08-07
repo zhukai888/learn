@@ -32,9 +32,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 
 // layout
 import { AppComponent } from './app.component';
-import { SliderComponent } from './layout/default/slider/slider.component';
-import { TopbarComponent } from './layout/default/topbar/topbar.component';
-import { DefaultComponent } from './layout/default/default/default.component';
+import { SliderComponent, TopbarComponent, DefaultComponent } from './layout/index';
 
 // pipe
 import { RewardTypePipe } from './common/pipe/reward-type.pipe';
@@ -52,6 +50,9 @@ import { httpInterceptorProviders } from './common/interceptor';
 import { InvitComponent } from './pages/invit/invit.component';
 import { WithdrawComponent } from './pages/order/withdraw/withdraw.component';
 import { LoginComponent } from './pages/login/login.component';
+
+
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 registerLocaleData(zh);
@@ -93,7 +94,8 @@ registerLocaleData(zh);
     NzModalModule,
     // NzGridModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }, httpInterceptorProviders, NzMessageService],
+  providers: [{ provide: NZ_I18N, useValue: zh_CN }, httpInterceptorProviders, NzMessageService,
+  { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

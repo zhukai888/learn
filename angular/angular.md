@@ -1,67 +1,46 @@
-安装CLI
+### angularjs 和  angular8 的区别
+
+| angularjs                        | angular8                          |
+| -------------------------------- | --------------------------------- |
+| 开发语言为js                     | typescript提供类型检查和代码提示  |
+| 采用不同的指令进行数据和事件绑定 | 采用[] 进行数据绑定，（）事件绑定 |
+| 可扩展性差，在复杂应用上维护性差 | 优异的可扩展性，可维护性          |
+
+### angular，vue，react 的比较
+
+```
+angular 是一个完整的框架，react，vue是一个类库（需要寻找各种的开源社区类库）
+```
+
+### 安装CLI
 
 ```
 npm install -g @angular/cli
-```
 
-创建项目
+ng new 项目名
 
-```
-ng new my-app
-```
+ng new 项目名 --skip-install	//只创建项目，不安装依赖
 
+ng generate component 组件名 		//生成component，class等
 
+ng g m Home --routing 创建带路由的模块
 
-数据绑定
-
-```
-双向数据绑定
-
-Angular 在每个 JavaScript 事件循环中处理所有的数据绑定，它会从组件树的根部开始，递归处理全部子组件
-```
-
-
-
-
-
-服务和DI(依赖)注入：
+ng serve --host 0.0.0.0
 
 ```
-Angular 把组件和服务区分开，以提高模块性和复用性。 通过把组件中和视图有关的功能与其它类型的处理分离开，你可以让组件类更加精简、高效。
 
-服务：
-组件应该把诸如从服务器获取数据、验证用户输入或直接往控制台中写日志等工作委托给各种服务。
-通过把各种处理任务定义到可注入的服务类中，你可以让它被任何组件使用。 通过在不同的环境中注入同一种服务的不同提供者，你还可以让你的应用更具适应性。
+### component:
 
-依赖注入：
-DI 被融入 Angular 框架中，用于在任何地方给新建的组件提供服务或所需的其它东西。 组件是服务的消费者，也就是说，你可以把一个服务注入到组件中，让组件类得以访问该服务类。
-
-在 Angular 中，要把一个类定义为服务，就要用 @Injectable() 装饰器来提供元数据，以便让 Angular 可以把它作为依赖注入到组件中。 同样，也要使用 @Injectable() 装饰器来表明一个组件或其它类（比如另一个服务、管道或 NgModule）拥有一个依赖。
-
-注入器是主要的机制。Angular 会在启动过程中为你创建全应用级注入器以及所需的其它注入器。你不用自己创建注入器。
-该注入器会创建依赖、维护一个容器来管理这些依赖，并尽可能复用它们。
-
-提供者是一个对象，用来告诉注入器应该如何获取或创建依赖。
-
-依赖不一定是服务 —— 它还可能是函数或值。
-
-
-提供服务
-例：
-    @Injectable({
-      providedIn: 'root',
-    })
-    
-    @Component({
-          selector:    'app-hero-list',
-          templateUrl: './hero-list.component.html',
-          providers:  [ HeroService ]
-        })
-```
+![image-20200803165623350](C:\Users\Admin\Desktop\learn\angular\component.png)
 
 指令：
 
 ```js
+分类：
+    组件： 带模板的指令
+    结构指令： 改变dom
+    属性指令：	属性改变
+
 ng-app	//定义一个 AngularJS 应用程序
 
 ng-controller	@Component//绑定控制器
@@ -93,141 +72,182 @@ ng-switch	//选择器
 	ng-switch-when="false"		*ngSwitchCase="false"
     ng-switch-default			ngSwitchDefault
 
+ng-content
+    
 ng-template
 
 ng-container
+
+自定义指令：
+1、 引入
+	import { Directive } from '@angular/core';
+2、 定义
+	@Directive({ selector: '[appGrigItem]' })
+3、 使用,div 为宿主
+	<div appGrigItem></div>
+
+
+指令的样式和事件绑定：
+	//指令没有模板，寄宿在 宿主上
+	@HostBinding 绑定宿主的属性或者样式
+    @HostBinding('style.display') display = 'grid';
+    
+	@HostListener 绑定宿主的事件
+    @HostListener('click', ['$event.target'])
+	handleClick(ev){ console.log(ev) }
+ 	//组建的样式也可使用 :host 这样一个伪类选择器
+	:host{}	//作用于 指令
 ```
 
-过滤器/管道：
+*ngfor
 
+```js
+let item of list, 	// item项
+let i = index, 	//数组索引
+let first = first; 	//是否第一个元素 boolean
+let last = last	// boolean
+let odd = odd	//偶数索引 boolean
+let  even = even //奇数索引 boolean
+trackBy:funcrtion	//使用trackBy的好处是自定义返回跟踪结果，以比对上次的跟踪结果，如果不一样，那么就刷新变化的页面实例（减少不必要的dom刷新而带来性能的提升）。
 ```
-<td>{{movie.price | currency}}</td>
 
-angular有内置的过滤器，常见的有：
-    DatePipe：根据本地环境中的规则格式化日期值。
-    UpperCasePipe：把文本全部转换成大写。
-    LowerCasePipe ：把文本全部转换成小写。
-    CurrencyPipe ：把数字转换成货币字符串，根据本地环境中的规则进行格式化。
-    DecimalPipe：把数字转换成带小数点的字符串，根据本地环境中的规则进行格式化。
-    PercentPipe ：把数字转换成百分比字符串，根据本地环境中的规则进行格式化。
+*ngIf
+
+```js
+1、<div *ngIf="条件表达式"> ww </div>
+
+2、<div *ngIf="条件表达式 else elseContent"> ww </div>
+	<ng-template #elseContent>ff</ng-template>
+	
+3、<div *ngIf="条件表达式；then thenTemplate; else elseContent"> </div>
+   <ng-template #thenTemplate>ff</ng-template>
+   <ng-template #elseContent>ff</ng-template>
+```
+
+### 数据绑定
+
+```js
+双向数据绑定   [(ngModel)] 
+Angular 在每个 JavaScript 事件循环中处理所有的数据绑定，它会从组件树的根部开始，递归处理全部子组件
+
+两者相当：
+<input [(ngModel)]="username" />  
+<input [ngModel]="username" (ngModelChange)="username = $event"/> 
+
+例：
+<appslider [(username)]="username"></appslider>  
+<appslider [username]="username" (usernameChange)="username = $event"/></appslider>
+```
+
+绑定事件：
+
+```js
+<a  (click)="s"></a>
+```
+
+样式绑定的集中方式：
+
+```js
+1、<div [class.className]="条件表达式"> ... </div>
+	通过表达式绑定 单个class
+    
+2、<div [ngClass]="{'one'：true，'Two',true}"> ... </div>
+	通过对象表达式绑定多个class
+   
+3、<div [ngStyle]='{"color"：someColor，"font-size",fontsize}'> ... </div>
+	通过 style 绑定 样式
 ```
 
 模块（*NgModule*）：
 
 ```
-模块
+解释：
+	提供相对独立功能的一组代码(也可以说：是一个小型的应用)
 
-用于存放一些内聚的代码块的容器，这些代码块专注于某个应用领域、某个工作流或一组紧密相关的功能。
-
-每个 Angular 应用都至少有一个 NgModule 类，也就是根模块，它习惯上命名为 AppModule，并位于一个名叫 app.module.ts 的文件中。引导这个根模块就可以启动你的应用。
-
-
-
-NgModule 是一个带有 @NgModule() 装饰器的类，@NgModule() 装饰器是一个函数，它接受一个元数据对象，该对象的属性用来描述这个模块。
-
-declarations（可声明对象表） —— 那些属于本 NgModule 的组件、指令、管道。
-exports（导出表） —— 那些能在其它模块的组件模板中使用的可声明对象的子集。
-imports（导入表） —— 那些导出了本模块中的组件模板所需的类的其它模块。
-providers —— 本模块向全局服务中贡献的那些服务的创建器。 这些服务能被本应用中的任何部分使用。（你也可以在组件级别指定服务提供者，这通常是首选方式。）
-bootstrap —— 应用的主视图，称为根组件。它是应用中所有其它视图的宿主。只有根模块才应该设置这个 bootstrap 属性。
+组成：
+	模块的组成部分可以有：组件、服务、指令、管道等
+	
+@NgModule 注解：
+declarations： —— 模块拥有的组件、指令、管道。
+exports： —— 暴露出去的组件、指令、管道等。
+imports： —— 引入没款所需的依赖。
+providers： 模块需要的服务
+bootstrap：应用的主视图，称为根组件。只有根模块才应该设置这个 bootstrap 属性。
 
 
-
-建立模块：
-
-//自定义模块名， 引用的模块名
-var app = angular.module("myApp", []);
-
-//创建控制器
-app.controller("myController", function ($scope) {
-	$scope.list = [101, 252, 345, 836];
-});
+注意：
+	模块依赖组件时， 每一个需要的组件都需要导入（例如：formsModule）
+	模块依赖服务时， 在 根模块 中导入一次即可(例如： httpClientModule/BrowserAnimationsModule/NoopAnimationsModule)
 
 ```
 
-
-
-CLI：
-
-```js
-npm install -g @angular/cli
-
-ng new 项目名
-
-ng new 项目名 --skip-install	//只创建项目，不安装依赖
-
-ng g component 组件名 		//生成component，class等
-```
-
-ViewChild
-
-```js
-获取节点，父组件调用子组件方法
-
-<div #box></div>
-
-//引入viewChild。
-import { ViewChild } from '@angular/core'
-
-//获取dom节点,赋值给mybox
-@ViewChild('box') myBox:any;
-```
-
-生命周期函数：
+注解 / 装饰器：
 
 ```
-ngOnInit：	//组件和指令初始化完成，dom未加载完成（添加angular指令的dom未加载 ）
-
-ngAfterViewInit   //视图加载完成，dom加载完成，dom操作放此处
+返回函数的函数，typescript 的特性
 ```
 
-父组件传值
+组件嵌套：
+
+```
+组件嵌套不可避免（过度嵌套会陷入复杂和冗余）
+组件的交互（@Input、@Output）
+避免组件嵌套导致冗余数据和事件传递
+```
 
 父 ==》 子
 
 ```js
-	<app-header [msg]="msg"></app-header>
-子组件引入@input模块
-	import { Input } from '@angular/core'
-子组件中@Input接受父组件传过来的数据
-	@Input() msg:string
-	
-方法： 引入ViewChild获取
+1、父组件传递 值
+    <app-header [msg]="msg"></app-header>
 
-通过获取 子组件 的节点，在执行方法
-	@ViewChild('topbar') topbar:any;
-	this.topbar.run()
+2、子组件引入@input模块  
+	import { Input } from '@angular/core'
+
+3、子组件中@Input接受父组件传过来的数据   
+	@Input() msg:string
 ```
 
 子 ==》 父
 
 ```js
-1、传递父组件方法，子组件调用：
-	[runp]="runp"
-	
-2、 通过 output 触发父组件的方法
-	子组件引入 Output 和 EventEmitter
-		import {Output, EventEmitter} '@angular/core'
-	子组件中实例化 EventEmitter
-    	@Output() private outer = new EventEmitter<string>();
-		this.outer.emit()	//向父组件广播数据
+1、父组件传递提交方法
+	<app-header (tabsubmit)="runParent($event)"></app-header>
 
-	父组件中 定义接受事件，outer是子组件的EventEmitter的实例：
-    	<app-header (outer)="runParent($event)"></app-header>
+2、子组件引入 Output 和 EventEmitter
+	import {Output, EventEmitter} '@angular/core'
+
+3、子组件中实例化 EventEmitter
+    @Output() private tabsubmit = new EventEmitter<string>();
+
+4、子组件 提交 
+    this.tabsubmit.emit('参数')
+```
+
+投影组件：
+
+```js
+ng-content : 动态内容
+
+<ng-content select="样式类/html/指令"></ng-content>	// 使用场景：动态内容，容器组件
+
+例：<ng-content select=".specl"></ng-content>
 ```
 
 生命周期函数：
 
 ```css
-ngOnChanges：当组件中指令的任何一个可绑定属性发生变化时调用
+constructor: 构造函数首先被调用
+
+ngOnChanges：组件的输入属性改变，调用多次
 
 ngOnInit： 初始化数据之后调用，获取不到 具有指令的dom，一般用来请求数据，在第一次ngOnChanges后调用
 
-ngDoCheck:	除了使用默认的变更检查器执行检查之外，还会为指令执行自定义的变更检测函数。
+ngDoCheck:	脏值检测时调用。
 
 ngAfterContentInit:  把内容 投影到组件中调用
 
-ngAfterContentChecked: 每次 投影进组件的内容的变更时 调用
+ngAfterContentChecked: 每次 投影进组件的内容的变更时 调用（脏值检测）
 
 ngAfterViewInit：组件dom渲染完成
 
@@ -236,84 +256,112 @@ ngAfterViewChecked： 每次做完组件视图和子组件的变更检测之后�
 ngOnDestroy： 在指令、管道或服务被销毁时调用。
 ```
 
-路由：
+模板在组件类中的引用（@viewChild）
+
+```js
+方法一：
+1、 定义 # 标识
+	<div #helloDiv> hello </div>	
+    //# 标识模板或DOM元素的名称
+    
+2、 通过 @ViewChild 引用模板
+    export class AppComponent{ @ViewChild('helloDiv') helloDivRef: ElementRef}
+    //@ViewChild 是一个选择器，用来查找要引用的 DOM 元素或者组件
+    //ElementRef Dom的包装类,有nativeElement属性
+
+   
+方法二（子组件关联）：
+1、@ViewChild('imgComponent：子组件名') img:imgComponent;
+	//可以通过获取到的 img，来执行子组件的事件
+  	this.img.run()
+
+
+引用多个模板元素(@ViewChildren)：
+<img #img *ngF="let slider of sliders" [src]="slider.imgUrl" />
+@ViewChildren('img') imgs: QueryList<ElementRef>
+        
+        
+        
+Renderer2：
+	// 直接访问 DOM 会导致应用很容易受到在 XSS 攻击。angular推荐render2来访问DOM
+1、引入
+	import { Renderer2 } from '@angular/core';
+
+2、创建操作的元素
+    <div #demo></div>
+    <button nz-button (click)="restDemo()">createElement</button>
+
+3、操作DOM
+	@ViewChild('demo') demoDom: ElementRef;
+    public restDemo(): void {
+        const divEle = this.render2.createElement('div');
+    	const textEle = this.render2.createText('hello Render2');
+    	this.render2.appendChild(divEle, textEle);
+    	this.render2.appendChild(this.demoDom.nativeElement, divEle);
+    }
+```
+
+
+
+路由(导航，切换视图的机制)：
 
 ```tsx
-//生成路由模块
-	ng new routing-app --routing	
-//在app.module中引入
-	import { AppRoutingModule } from './app-routing.module';	
-//配置路由文件
-    @NgModule({
-      imports: [RouterModule.forRoot(routes)],
-      exports: [RouterModule]
-    })
- 
-
-获取路由信息:
-//引入 ActivatedRoute, ParamMap 模块
-	import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-//添加到路由页面的构造函数中
-    constructor(
-      private route: ActivatedRoute,
-    ) {}
-//获取路由传递的参数
-  	this.route.queryParams.subscribe(params => {
-    	this.name = params['name'];
-  	});
+1、配置路由模块
+	ng new routing-app --routing	//生成路由模块
+	import { AppRoutingModule } from './app-routing.module';	//在app.module中引入
+    //配置路由文件，forRoot（根路由）、forChild（子路由）
+        @NgModule({
+          imports: [RouterModule.forRoot(routes)],
+          exports: [RouterModule]
+        })
 
 
-路由配置：
-//通配符页面
-	{ path: '**', component:  PageNotFoundComponent }
+2、配置路由
+	①、默认路由设置：
+    	{ path: '',   redirectTo: '/first-component', pathMatch: 'full' }
+	②、通配符设置：
+    	{ path: '**', component:  PageNotFoundComponent }
+	③、动态路由匹配
+    	{ path: ':order', component: DefaultComponent},
 
-// 设置重定向
-	{ path: '',   redirectTo: '/first-component', pathMatch: 'full' }
 
-//嵌套路由
-    { 
-        path: 'first-component',
-        component: FirstComponent,
-        children: [
-            {
-                path: 'second-component',
-                component: FirstComponent,
-            }
-        ]
-    }
+3、跳转路由
+	①、 routerLink
+        a、queryParams 参数传递
+            <a routerLink="/heroes" [queryParams]="{id:1}" routerLinkActive="active">Heroes</a>
+        b、动态路由参数传递
+            <a routerLink="['/heroes',orderNumber, [queryParams]]" >Heroes</a>
 
-//跳转路由
-	<a routerLink="../second-component">Relative Route to second component</a>
-	this.router.navigate(['items'], { relativeTo: this.route });
 
-    1.以根路由跳转/login
-    this.router.navigate(['login']);
+	②、navigate
+    	a、无参数
+        	this.router.navigate(['login']);
+		b、queryParams 传递参数
+        	this.router.navigate(['login', 1],{ queryParams: { name: 1 } });
+		c、 replace， 阻止路由跳转（设置为false）
+			this.router.navigate(['/home'], { replaceUrl: false });
+        d、relativeTo，对当前路由跳转（route是ActivatedRoute的实例，）
+			this.router.navigate(['login', 1],{relativeTo: route});
+		e、preserveQueryParams，保留之前的路由参数（设置为true）
+        	this.router.navigate(['home'], { preserveQueryParams: true });
+		f、skipLocationChange，保留url不变、传入参数有效（设为true）
+			this.router.navigate(['/home'], { skipLocationChange: true });
+		g、路由中锚点跳转 /home#top
+        	this.router.navigate(['home'],{ fragment: 'top' });
+		H、preserveFragment，保留之前路由中的锚点(设为true)
+			this.router.navigate(['/role'], { preserveFragment: true });
 
-    2.设置relativeTo相对当前路由跳转，route是ActivatedRoute的实例，使用需要导入ActivatedRoute
-    this.router.navigate(['login', 1],{relativeTo: route}); 
 
-    3.路由中传参数 /login?name=1
-    this.router.navigate(['login', 1],{ queryParams: { name: 1 } }); 
-	<a [routerLink]="['/newPage']"  [queryParams]="{aid:key}" RouterLinkActive="类名"></a>
-
-    4.preserveQueryParams默认值为false，设为true，保留之前路由中的查询参数/login?name=1 to /home?name=1
-    this.router.navigate(['home'], { preserveQueryParams: true }); 
-
-    5.路由中锚点跳转 /home#top
-     this.router.navigate(['home'],{ fragment: 'top' });
-
-    6.preserveFragment默认为false，设为true，保留之前路由中的锚点/home#top to /role#top
-    this.router.navigate(['/role'], { preserveFragment: true }); 
-
-    7.skipLocationChange默认为false，设为true，路由跳转时浏览器中的url会保持不变，但是传入的参数依然有效
-    this.router.navigate(['/home'], { skipLocationChange: true });
-
-    8.replaceUrl默认为true，设为false，路由不会进行跳转
-    this.router.navigate(['/home'], { replaceUrl: true }); 
-
-路由选中：
-<a RouterLinkActive="类名"></a>
-    
+4、获取参数
+	①、引入 ActivatedRoute 模块
+    	import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+	②、添加到路由页面的构造函数中
+        constructor( private route: ActivatedRoute ) {}
+	③、 获取 queryParams 参数
+    	this.route.queryParams.subscribe(params => { this.name = params['name']; });
+    	this.route.queryParamMap.subscribe(params => { this.name = params['name']; });
+	④、 获取 paramsAsMap 参数(动态路由)
+    	this.route.paramMap.subscribe(params => { this.name = params['name']; });
 ```
 
 路由守卫：
@@ -329,9 +377,91 @@ Resolve： 在路由激活之前获取路由数据。可以处理请求提前加
 CanLoad：处理异步导航到某特性模块的情况。
 ```
 
+管道：
+
+```js
+作用： 视图中提供格式化值的方法
+
+
+angular有内置的过滤器，常见的有：
+    DatePipe：根据本地环境中的规则格式化日期值。
+    UpperCasePipe：把文本全部转换成大写。
+    LowerCasePipe ：把文本全部转换成小写。
+    CurrencyPipe ：把数字转换成货币字符串，根据本地环境中的规则进行格式化。
+    DecimalPipe：把数字转换成带小数点的字符串，根据本地环境中的规则进行格式化。
+    PercentPipe ：把数字转换成百分比字符串，根据本地环境中的规则进行格式化。
+    JsonPipe： 处理成json数据
+    SlicePipe:  消减字符串或数组
+    KeyValuePipe: 处理成 keyValue 形式
+    
+例：
+    <td>{{movie.price | currency: 'CNY'}}</td>
+    <td>{{data | slice:1:3}}</td>
+
+自定义管道：
+	1、引入 Pipe PipeTransform
+    	import { Pipe, PipeTransform } from '@angular/core';
+    2、定义 Pipe 名
+        @Pipe({ name: 'rewardorderState' })
+	3、导出管道
+    	export class RewardorderStatePipe implements PipeTransform {
+          transform(value: string): string { 转换函数体 } }
+```
+
+依赖注入 和 服务：
+
+```
+新建服务：
+	1、标记 class 为可注入的服务：@Injectable() 
+    2、声明服务： 在模块的 providers 中声明，或使用 import 加载对应模块
+	3、组件中使用： 构造函数中直接声明
+
+例：
+@Injectable({
+  providedIn: 'root'
+})
+export class LoadInterceptor implements HttpInterceptor {}
+```
+
+脏值检测：
+
+```
+解释：  数据改变时，更新视图（Dom改变）
+
+时机：
+	浏览器事件(如click， mouseover，keyup等)
+	setTimeout() 和 setInterval()
+	Http 请求
+	
+原理： 检测两个状态值：当前状态和新状态
+
+不推荐在 ngAfterViewChecked 中，修改DOM属性值，因为修改完之后，会立即进行脏值检测，造成死循环，
+
+解决这种情况：使用 ngZone:
+	ngAfterViewChecked():void{
+	this.ngZone.runOutsideAugular(()=>{
+		setInterval(() => {this.title = '修改值'}，100)；
+	});
+	}
+```
+
+脏值流程检测：
+
+<img src="脏值检测流程.png" style="zoom:60%;" />
+
+脏值流程onpush检测：
+
+<img src="\onpush策略.png" style="zoom:60%;" />
+
+
+
 RxJS
 
 ```js
+终端安装npm install rxjs-compat然后声明
+import'rxjs / add / operator / map';
+
+
 Observable：
 new Observable((observer) => {
   observer.next()
@@ -392,17 +522,14 @@ Jsonp请求数据
 ```
 在app.module中引入 HttpClientModule,HttpCliemtJsonpModule
 
-this.http.jsonp("api/a",'XXX').subscribe((res) => {
+this.http.jsonp("api/a",'XXX').subscribe((res) => {}
 ```
 
-
-
-
+扩展：
 
 ```
-终端安装npm install rxjs-compat然后声明
+<div [textContent] = "text"></div>		// 绑定文本
 
-import'rxjs / add / operator / map';
 ```
 
 

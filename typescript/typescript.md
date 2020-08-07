@@ -193,6 +193,14 @@ myArray = ["Bob", "Fred"];
 let myStr: string = myArray[0];
 ```
 
+key-value 类型
+
+```js
+interface Counter {
+	(key: string): string;
+}
+```
+
 类类型：
 
 ```tsx
@@ -267,10 +275,6 @@ c.interval = 5.0;
 
 ## 类：
 
-```
-
-```
-
 继承：
 
 ```tsx
@@ -288,19 +292,12 @@ class Dog extends Animal {
 }
 ```
 
-
-
-
-
-
-
 类型注解：
 
 ```
 function greeter(person: string) {
     return "Hello, " + person;
 }
-
 ```
 
 接口：

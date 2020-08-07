@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4202 --host 0.0.0.0 --proxy-config proxy.config.json",
-    "build:prod": "ng build --prod  --base-href ./",
-    "build:test": "ng build --base-href ../",
+    "build:prod": "ng build --prod --base-href ./ --configuration=production",
+    "build:test": "ng build --prod --base-href ./ --configuration=test",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

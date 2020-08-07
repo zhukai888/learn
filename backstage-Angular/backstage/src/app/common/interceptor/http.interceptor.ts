@@ -16,7 +16,7 @@ export class LoadInterceptor implements HttpInterceptor {
     const startTime = Date.now();
 
     const clonedRequest = req.clone({
-      headers: req.headers.set('Content-Type', 'application/json').set('Authorization', 'token')
+      // headers: req.headers.set('Authorization', 'token')
     });
 
 
