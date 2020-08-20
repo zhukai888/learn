@@ -1,9 +1,5 @@
 import { Output, EventEmitter, Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
-import { filter } from 'rxjs/operators';
-// import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-topbar',
@@ -13,7 +9,6 @@ import { filter } from 'rxjs/operators';
 export class TopbarComponent implements OnInit {
 
   isCollapsed = false;
-  re='ooo';
 
   routerPath = [];
 

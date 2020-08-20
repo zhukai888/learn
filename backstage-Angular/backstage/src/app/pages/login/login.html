@@ -1,0 +1,34 @@
+<div class="login">
+  <div class="main">
+    <img src="../../../assets/image/login/mianpic.png" alt="" />
+    <div class="loginInfo">
+      <div class="title">
+        <img src="../../../assets/image/logo.png" alt="" />
+        <span>美术传媒拍卖</span>
+      </div>
+      <div class="login-form">
+        <form nz-form [formGroup]="validateForm" (ngSubmit)="login()">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="请输入账号">
+              <nz-input-group nzPrefixIcon="user" nzSize='large'>
+                <input formControlName="accountNumber" nz-input placeholder="请输入账号" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="请输入密码">
+              <nz-input-group nzPrefixIcon="unlock" nzSize='large'>
+                <input formControlName="psd" nz-input placeholder="请输入账号" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <button nz-button nzType="default">登录</button>
+          </nz-form-item>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>

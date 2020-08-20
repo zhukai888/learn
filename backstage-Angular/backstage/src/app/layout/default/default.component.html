@@ -1,0 +1,14 @@
+<nz-layout class="app-layout">
+  <nz-sider  nzCollapsible nzWidth="256px" [(nzCollapsed)]="isCollapsed" nzTheme="dark">
+    <app-slider [isCollapsed]="isCollapsed"></app-slider>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <app-topbar (outer)="handlerChild($event)"></app-topbar>
+    </nz-header>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+
+  </nz-layout>
+</nz-layout>

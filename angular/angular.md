@@ -33,7 +33,7 @@ ng serve --host 0.0.0.0
 
 ![image-20200803165623350](C:\Users\Admin\Desktop\learn\angular\component.png)
 
-指令：
+### 指令：
 
 ```js
 分类：
@@ -99,7 +99,7 @@ ng-container
 	:host{}	//作用于 指令
 ```
 
-*ngfor
+### *ngfor
 
 ```js
 let item of list, 	// item项
@@ -111,7 +111,7 @@ let  even = even //奇数索引 boolean
 trackBy:funcrtion	//使用trackBy的好处是自定义返回跟踪结果，以比对上次的跟踪结果，如果不一样，那么就刷新变化的页面实例（减少不必要的dom刷新而带来性能的提升）。
 ```
 
-*ngIf
+### *ngIf
 
 ```js
 1、<div *ngIf="条件表达式"> ww </div>
@@ -139,13 +139,13 @@ Angular 在每个 JavaScript 事件循环中处理所有的数据绑定，它会
 <appslider [username]="username" (usernameChange)="username = $event"/></appslider>
 ```
 
-绑定事件：
+### 绑定事件：
 
 ```js
 <a  (click)="s"></a>
 ```
 
-样式绑定的集中方式：
+### 样式绑定的集中方式：
 
 ```js
 1、<div [class.className]="条件表达式"> ... </div>
@@ -158,7 +158,7 @@ Angular 在每个 JavaScript 事件循环中处理所有的数据绑定，它会
 	通过 style 绑定 样式
 ```
 
-模块（*NgModule*）：
+### 模块（*NgModule*）：
 
 ```
 解释：
@@ -181,13 +181,13 @@ bootstrap：应用的主视图，称为根组件。只有根模块才应该设�
 
 ```
 
-注解 / 装饰器：
+### 注解 / 装饰器：
 
 ```
 返回函数的函数，typescript 的特性
 ```
 
-组件嵌套：
+### 组件嵌套：
 
 ```
 组件嵌套不可避免（过度嵌套会陷入复杂和冗余）
@@ -195,7 +195,7 @@ bootstrap：应用的主视图，称为根组件。只有根模块才应该设�
 避免组件嵌套导致冗余数据和事件传递
 ```
 
-父 ==》 子
+### 父 ==》 子
 
 ```js
 1、父组件传递 值
@@ -208,7 +208,7 @@ bootstrap：应用的主视图，称为根组件。只有根模块才应该设�
 	@Input() msg:string
 ```
 
-子 ==》 父
+### 子 ==》 父
 
 ```js
 1、父组件传递提交方法
@@ -224,7 +224,7 @@ bootstrap：应用的主视图，称为根组件。只有根模块才应该设�
     this.tabsubmit.emit('参数')
 ```
 
-投影组件：
+### 投影组件：
 
 ```js
 ng-content : 动态内容
@@ -234,7 +234,7 @@ ng-content : 动态内容
 例：<ng-content select=".specl"></ng-content>
 ```
 
-生命周期函数：
+### 生命周期函数：
 
 ```css
 constructor: 构造函数首先被调用
@@ -256,7 +256,7 @@ ngAfterViewChecked： 每次做完组件视图和子组件的变更检测之后�
 ngOnDestroy： 在指令、管道或服务被销毁时调用。
 ```
 
-模板在组件类中的引用（@viewChild）
+### 模板在组件类中的引用（@viewChild）
 
 ```js
 方法一：
@@ -303,7 +303,7 @@ Renderer2：
 
 
 
-路由(导航，切换视图的机制)：
+### 路由(导航，切换视图的机制)：
 
 ```tsx
 1、配置路由模块
@@ -364,7 +364,7 @@ Renderer2：
     	this.route.paramMap.subscribe(params => { this.name = params['name']; });
 ```
 
-路由守卫：
+### 路由守卫：
 
 ```js
 创建服务：
@@ -377,7 +377,7 @@ Resolve： 在路由激活之前获取路由数据。可以处理请求提前加
 CanLoad：处理异步导航到某特性模块的情况。
 ```
 
-管道：
+### 管道：
 
 ```js
 作用： 视图中提供格式化值的方法
@@ -408,7 +408,7 @@ angular有内置的过滤器，常见的有：
           transform(value: string): string { 转换函数体 } }
 ```
 
-依赖注入 和 服务：
+### 依赖注入 和 服务：
 
 ```
 新建服务：
@@ -423,7 +423,7 @@ angular有内置的过滤器，常见的有：
 export class LoadInterceptor implements HttpInterceptor {}
 ```
 
-脏值检测：
+### 脏值检测：
 
 ```
 解释：  数据改变时，更新视图（Dom改变）
@@ -445,11 +445,11 @@ export class LoadInterceptor implements HttpInterceptor {}
 	}
 ```
 
-脏值流程检测：
+#### 脏值流程检测：
 
 <img src="脏值检测流程.png" style="zoom:60%;" />
 
-脏值流程onpush检测：
+#### 脏值流程onpush检测：
 
 <img src="\onpush策略.png" style="zoom:60%;" />
 

@@ -78,7 +78,7 @@
     </nz-table>
   </div>
 
-  <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalData.title" [nzFooter]="modalFooter" (nzOnCancel)="colseModel()">
+ <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalData.title" [nzFooter]="modalFooter" (nzOnCancel)="colseModel()">
     <ng-container *ngIf="modalData.type != 3 else elseTemplate ">
       <form nz-form>
         <nz-form-item>
@@ -148,88 +148,5 @@
       <button nz-button nzType="primary" (click)="sure()">确定</button>
     </ng-template>
   </nz-modal>
-
 </div>
 
-
-
-
-
-
-
-
-
-
-<!-- <div>
-  <el-dialog :title="dialog.title" :visible.sync="dialogVisible" width="500px" @close="dialogVisible = false"
-    :before-close="handleClose">
-    <div v-if="dialog.type!=3">
-      <el-form inline label-width="100px">
-        <el-form-item label="操作员:">
-          <el-input disabled v-model="dialog.userName" size="large"></el-input>
-        </el-form-item>
-        <br>
-        <el-form-item label="汇款流水号:" v-show="dialog.type==1">
-          <el-input v-model="dialog.erialNumber"></el-input>
-        </el-form-item>
-        <el-form-item label="拒付理由" v-show="dialog.type==2">
-          <el-input type="textarea" v-model="dialog.request_remark"></el-input>
-        </el-form-item>
-      </el-form>
-    </div>
-    <div v-else class="detail">
-      <div>
-        <div>提现单号:</div>
-        <div>{{drawDetail.draw_cash_order_number}}</div>
-      </div>
-      <div>
-        <div>申请人:</div>
-        <div>{{drawDetail.uname}}</div>
-      </div>
-      <div>
-        <div>收款账户:</div>
-        <div>
-          <p>{{drawDetail.user_real_name + "(" +drawDetail.account_number+")"}}</p>
-          <p></p>
-        </div>
-      </div>
-      <div>
-        <div>提现金额:</div>
-        <div>{{drawDetail.draw_money}}</div>
-      </div>
-      <div>
-        <div>手续费:</div>
-        <div>{{drawDetail.commission_money}}</div>
-      </div>
-      <div>
-        <div>提现时间:</div>
-        <div>{{drawDetail.request_time }}</div>
-      </div>
-      <div>
-        <div>提现状态:</div>
-        <div> {{drawDetail.request_state	| stateFilter}}</div>
-      </div>
-      <div v-show="drawDetail.request_state == 4">
-        <div>备注(拒绝原因):</div>
-        <div>{{drawDetail.request_remark}}</div>
-      </div>
-      <div v-show="drawDetail.request_state == 1 || drawDetail.request_state == 2">
-        <div>汇款流水号:</div>
-        <div>{{drawDetail.serial_number	}}</div>
-      </div>
-      <div>
-        <div>操作员:</div>
-        <div>{{drawDetail.deal_staff_name	}}</div>
-      </div>
-      <div>
-        <div>操作时间:</div>
-        <div>{{drawDetail.deal_time}}</div>
-      </div>
-
-    </div>
-
-    <span slot="footer" class="dialog-footer" v-show="dialog.type!=3">
-      <el-button type="primary" @click="sure">确 定</el-button>
-    </span>
-  </el-dialog>
-</div> -->

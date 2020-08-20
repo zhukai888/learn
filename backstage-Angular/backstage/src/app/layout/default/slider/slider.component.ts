@@ -1,9 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ɵConsole } from '@angular/core';
 import { Router } from '@angular/router';
 import { PlatformLocation } from '@angular/common';
-
-import { of, Observable, from, fromEvent, interval } from 'rxjs';
-import { map, filter, merge, max, min, scan, tap, reduce } from 'rxjs/operators';
+import { GlobalInfoService } from '../../../common/services/globalInfo.service';
 
 
 @Component({
@@ -21,32 +19,26 @@ export class SliderComponent implements OnInit {
   public routeList: any;
 
 
-  constructor(private router: Router, private planform: PlatformLocation) {
+  constructor(private router: Router, private planform: PlatformLocation, private global: GlobalInfoService) {
+    this.routeList = this.global.routeList;
   }
 
   ngOnInit(): void {
-
     // 获取当前路由配置
-    this.path = this.planform.pathname.substr(1).split('/');
-
-    // 获取所有路由配置
-    this.routeList = this.router.config.filter(item => item.data && item.data.hidden !== true);
+    this.path = this.planform.hash.substr(2).split('/');
 
     // 首次展开当前路由的二级菜单
     const list = this.routeList;
-    // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < list.length; i++) {
-      if (!list[i].data.only && list[i].path === this.path[0]) {
-        // tslint:disable-next-line: prefer-for-of
-        for (let a = 0; a < list[i].children.length; a++) {
-          if (list[i].children[a].path === this.path[1]) {
-            list[i].open = true;
+    for (const route of this.routeList) {
+      if (!route.data.only && route.path === this.path[0]) {
+        for (const child of route.children) {
+          if (child.path === this.path[1]) {
+            route.open = true;
             return;
           }
         }
       }
     }
-
   }
 
   /**
@@ -59,12 +51,8 @@ export class SliderComponent implements OnInit {
    */
   changeOpen(i: number, type: boolean): void {
     if (type) {
-      this.routeList.forEach((route, index) => {
-        if (i === index) {
-          route.open = true;
-        } else {
-          route.open = false;
-        }
+      this.routeList.forEach((route: any, index: number) => {
+        route.open = i === index ? true : false;
       });
     }
   }

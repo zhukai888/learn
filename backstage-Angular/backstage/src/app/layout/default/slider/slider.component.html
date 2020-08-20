@@ -1,32 +1,32 @@
-<div class="sidebar-logo">
-  <img src="assets/image/logo.png">
-  <h1>艺术融媒体</h1>
-</div>
+<ul class="slider" nz-menu nzTheme="dark" [nzInlineCollapsed]="isCollapsed" nzMode="inline">
 
-
-<ul nz-menu nzTheme="light" [nzInlineCollapsed]="isCollapsed" nzMode="inline">
+  <div class="sidebar-logo">
+    <img src="assets/image/logo.png">
+    <h1>艺术融媒体</h1>
+  </div>
 
   <ng-container *ngFor="let route of routeList; let i=index">
 
-    <ng-container *ngIf="route.data.only">
-      <li nz-menu-item nzMatchRouter >
+    <ng-container *ngIf="route.data.only; else elseTemplate">
+      <li nz-menu-item nzMatchRouter>
         <i nz-icon [nzType]="'setting'"></i>
         <span>{{route.data.name}}</span>
         <a [routerLink]="'/' + route.path" (click)="changeOpen(i,true)"></a>
       </li>
     </ng-container>
-
-    <ng-container *ngIf="!route.data.only">
+    <ng-template #elseTemplate>
       <li nz-submenu nzMatchRouter [nzTitle]="route.data.name" nzIcon="dashboard" [nzOpen]="route.open"
         (nzOpenChange)="changeOpen(i,$event)">
         <ul>
           <ng-container *ngFor="let routeChildren of route.children">
-            <li nz-menu-item nzMatchRouter  *ngIf="!routeChildren.data.hidden">
-              <a [routerLink]="'/' + route.path + '/' + routeChildren.path">{{routeChildren.data.name}}</a>
+            <li nz-menu-item nzMatchRouter>
+              <span>{{routeChildren.data.name}}</span>
+              <a [routerLink]="'/' + route.path + '/' + routeChildren.path"></a>
             </li>
           </ng-container>
         </ul>
-    </ng-container>
+    </ng-template>
+
   </ng-container>
 
 </ul>
